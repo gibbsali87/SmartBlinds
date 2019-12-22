@@ -1,0 +1,68 @@
+#!/bin/bash
+
+
+#Author: Arshad Ali
+#Description: This file consists of code for Smat Blinds Application's main menu.
+#             This will allow the end user to Operate the Blinds based on available choices.
+
+echo -e "\e[31m~~~~~~~~~~~~"
+echo -e "\e[92mMain Menu"
+echo -e "\e[31m~~~~~~~~~~~~"
+echo -e "\e[39m"
+
+# Print Welcome message to screen/User
+
+echo -e "\e[5mWelcome!!! \e[25mPlease Choose one of the following Options"
+echo " "
+
+# Print 4 options to screen/user to select from
+
+echo -e "\e[92m1. \e[39mOpen or Close Blinds"
+echo -e "\e[92m2. \e[39mAutomate Blinds based on Light"
+echo -e "\e[92m3. \e[39mOperate on Schedule"
+echo -e "\e[92m4. \e[39mExit"
+
+# Creates a Variable "userInput" to hold user input.
+
+read userInput
+
+# While loop to check user input and loop the menu until the correct option is reached based on case statement.
+
+while [[ -z "$userInput" ]] || [[ -n ${userInput//[0-9]/} ]] || [ "$userInput" -le 0 ] || [ "$userInput" -ge 1 ]; do
+
+# Start of if statement: If statement checks the user input if it's between 1 and 4 the statement will enter case statement otherwise
+#it will print to user and ask for valid number
+
+  if [[ -z "$userInput" ]]; then
+    echo -e "Please enter a valid number between \e[5m1-5\e[25m, Empty field not Allowed!!!"
+    read userInput
+
+  elif [[ -n ${userInput//[0-9]/} ]]; then
+
+    echo -e "Please enter a valid number between \e[5m1-5\e[25m. Text not allowed!!!"
+    read userInput
+
+  elif [ "$userInput" -ge 1 ] && [ "$userInput" -le 5 ]; then
+    case $userInput in
+    1)
+      python SmartBlinds.py
+      break
+      ;;
+    2)
+      python LS2Wia.py
+      break
+      ;;
+    3)
+      python Schedule.py
+      break
+      ;;
+    4)
+      echo -e "\e[92mGoodbye. See you soon!!!"
+      exit 1
+    esac
+    else
+      echo -e "Please enter a valid number between \e[5m1-5\e[25m !!!"
+      read userInput
+  fi
+
+done
